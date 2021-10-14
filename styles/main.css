@@ -1,0 +1,417 @@
+:root {
+    --couleur-interactivite: #0947c8;
+    --couleur-interactivite-pale: #d7e5ff;
+    --couleur-erreur: #aa1320;
+    --page-max-width: 100%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    min-width: 320px;
+    overflow-x: hidden;
+    line-height: 1.3;
+}
+
+header {
+    padding: 16px;
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    background: rgb(2, 1, 14);
+    color: #fff;
+}
+
+header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2rem;
+}
+
+main {
+    position: relative;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 32px 16px;
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    background: #fff;
+}
+
+a {
+    color: var(--couleur-interactivite);
+}
+
+button {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    appearance: none;
+    padding: 12px 14px;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    border: none;
+    border-radius: 4px;
+    color: var(--couleur-interactivite);
+    border: 1px solid var(--couleur-interactivite);
+    background: none;
+}
+
+button:not(:disabled) {
+    cursor: pointer;
+    outline: none;
+}
+
+button[type='submit'] {
+    background: var(--couleur-interactivite);
+    color: #fff;
+}
+
+button:hover:not(:active):not(:focus) {
+    color: #000;
+}
+
+button:hover:not(:active),
+button:focus:not(:active) {
+    background: var(--couleur-interactivite-pale);
+    color: #000;
+}
+
+button:focus:not(:active) {
+    box-shadow: 0 0 0px 2px var(--couleur-interactivite);
+}
+
+p {
+    margin: 16px 0 0;
+}
+
+.visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.barre-progression {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    gap: 8px;
+    counter-reset: etape;
+    font-size: 0.55rem;
+}
+
+.barre-progression__etape {
+    counter-increment: etape;
+    flex: 1;
+    gap: 8px;
+    margin: 0;
+}
+
+.barre-progression__etiquette {
+    transition: background-color 0.3s ease, border-color 0.3s ease,
+        box-shadow 0.3s ease, color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: rgb(240, 240, 240);
+    border-radius: 8px;
+    border: 2px solid rgb(240, 240, 240);
+    text-align: center;
+    min-height: 100%;
+}
+
+.barre-progression__etiquette::before {
+    content: counter(etape);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #fff;
+    font-size: 1rem;
+}
+
+.barre-progression__etiquette[tabindex] {
+    cursor: pointer;
+    text-decoration: underline;
+    background: rgb(50, 50, 50);
+    color: #fff;
+    border-color: rgb(30, 30, 30);
+}
+
+.barre-progression__etiquette[tabindex]::before {
+    background: rgb(50, 50, 50);
+    color: #fff;
+}
+
+.barre-progression__etape--courante .barre-progression__etiquette::before {
+    color: #000;
+}
+
+.barre-progression__etape--courante .barre-progression__etiquette {
+    border-color: #000;
+    background: rgb(30, 30, 30);
+    color: #fff;
+}
+
+.barre-progression__etiquette[tabindex]:hover:not(:active),
+.barre-progression__etiquette[tabindex]:focus:not(:active) {
+    background: var(--couleur-interactivite-pale);
+    border-color: rgb(218, 222, 245);
+    color: var(--couleur-interactivite);
+    cursor: pointer;
+}
+
+.barre-progression__etiquette[tabindex]:hover:not(:active)::before,
+.barre-progression__etiquette[tabindex]:focus:not(:active)::before {
+    background: var(--couleur-interactivite);
+    color: rgb(228, 231, 247);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px 16px;
+    outline: none;
+}
+
+.form-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 16px;
+    width: 100%;
+    align-items: baseline;
+}
+
+.form__message-erreur-general {
+    position: relative;
+    display: none;
+    background: #fff0f4;
+    padding: 1.8rem;
+    border-radius: 8px;
+    outline: none;
+}
+
+.form__message-erreur-general::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-30%, -30%);
+    content: '';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background-image: url('../assets/svg/erreur.svg');
+}
+
+.form__message-erreur-general h2 {
+    font-size: 1.1rem;
+    margin: 0;
+    color: var(--couleur-erreur);
+}
+
+.form__message-erreur-general p {
+    margin: 8px 0 0 0;
+}
+
+.form__message-erreur-general ul {
+    margin: 8px 0 0 0;
+}
+
+.form__etape {
+    display: flex;
+    flex-direction: column;
+    gap: 24px 16px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: none;
+}
+
+.form__etape p {
+    margin: 0;
+}
+
+.form__titre-etape {
+    padding: 0;
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.champ {
+    width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.champ--md {
+    max-width: 177px;
+}
+
+.champ--lg {
+    max-width: 370px;
+}
+
+.champ--erreur .champ__boite {
+    border-color: var(--couleur-erreur);
+}
+
+.champ--erreur .champ__etiquette {
+    color: var(--couleur-erreur);
+}
+
+.champ {
+    margin: 0;
+}
+
+.champ__boite {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    display: inline-flex;
+    flex: auto;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid rgb(95, 95, 95);
+    color: rgb(95, 95, 95);
+    padding: 0;
+    margin: 0.4rem 0 0;
+}
+
+.champ:not(.champ--erreur) .champ__boite:hover {
+    border-color: #000;
+    color: #000;
+}
+
+.champ:not(.champ--erreur):focus-within .champ__boite {
+    border-color: var(--couleur-interactivite);
+    box-shadow: 0 0 0px 2px var(--couleur-interactivite);
+}
+
+.champ:focus-within .champ__boite {
+    box-shadow: 0 0 0px 2px var(--couleur-erreur);
+}
+
+.champ__etiquette {
+    transition: color 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: 8px;
+    transform: translate(0, -50%);
+    background: #fff;
+    padding: 0 4px;
+    font-size: 0.9rem;
+    color: inherit;
+    cursor: pointer;
+}
+
+.champ:not(.champ--erreur):focus-within .champ__etiquette {
+    color: var(--couleur-interactivite);
+}
+
+.champ__input {
+    appearance: none;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    width: 100%;
+    margin: 0;
+    padding: 12px;
+    color: #000;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    background: rgba(255, 255, 255, 0);
+}
+
+.champ__messages {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.champ__message-aide,
+.champ__message-erreur {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.champ__message-aide {
+    color: rgb(82, 82, 82);
+}
+
+.champ__message-erreur {
+    display: none;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    color: var(--couleur-erreur);
+}
+
+.champ__message-erreur::before {
+    content: '';
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 14px;
+    height: 14px;
+    background-image: url('../assets/svg/erreur.svg');
+}
+
+@media (min-width: 852px) {
+    body {
+        --page-max-width: 820px;
+
+        background: rgb(245, 245, 245);
+    }
+
+    header {
+        margin: 32px auto 0 auto;
+        border-radius: 8px 8px 0 0;
+    }
+
+    main {
+        margin: 0 auto 32px auto;
+        border-radius: 0 0 8px 8px;
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+    }
+}
+
+@media (min-width: 425px) {
+    header,
+    main {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+}
+
+@media (min-width: 500px) {
+    .barre-progression {
+        font-size: 0.9rem;
+    }
+}

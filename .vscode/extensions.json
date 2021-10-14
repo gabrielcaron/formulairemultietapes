@@ -1,0 +1,13 @@
+{
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "eg2.tslint",
+        "stylelint.vscode-stylelint",
+        "mrmlnc.vscode-scss",
+        "mkaufman.htmlhint",
+        "esbenp.prettier-vscode",
+        "christian-kohler.npm-intellisense",
+        "ritwickdey.liveserver",
+        "davidanson.vscode-markdownlint"
+    ]
+}

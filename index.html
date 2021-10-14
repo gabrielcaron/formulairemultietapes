@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TP1 - Formulaires multi-étapes</title>
+        <link rel="stylesheet" href="styles/main.css" />
+    </head>
+    <body>
+        <header>
+            <h1>Inscription</h1>
+        </header>
+        <main>
+            <form
+                id="form"
+                name="inscription"
+                class="form"
+                method="POST"
+                action="#"
+            >
+                <div
+                    id="messageErreurGeneral"
+                    class="form__message-erreur-general"
+                    tabindex="-1"
+                    role="alert"
+                ></div>
+                <fieldset
+                    class="form__etape"
+                    data-etape="identification"
+                    tabindex="-1"
+                    aria-labelledby="titreIdentification"
+                >
+                    <h2 id="titreIdentification" class="form__titre-etape">
+                        Identification
+                    </h2>
+
+                    <div id="champPseudonyme" class="champ champ--lg">
+                        <div class="champ__boite">
+                            <label for="pseudonyme" class="champ__etiquette"
+                                >Pseudonyme</label
+                            >
+                            <input
+                                class="champ__input"
+                                id="pseudonyme"
+                                name="pseudonyme"
+                                type="text"
+                                pattern="([A-Z])\w+"
+                                required="required"
+                                aria-labelledby="messagesPseudonyme"
+                            />
+                        </div>
+                        <div id="messagesPseudonyme" class="champ__messages">
+                            <p
+                                class="champ__message-erreur"
+                                aria-live="polite"
+                                aria-atomic="false"
+                            >
+                                Utiliser des lettres, des traits d'unions ou le
+                                tiret bas pour composer votre pseudonyme.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div id="champPrenom" class="champ champ--lg">
+                        <div class="champ__boite">
+                            <label for="prenom" class="champ__etiquette"
+                                >Prénom</label
+                            >
+                            <input
+                                class="champ__input"
+                                id="prenom"
+                                name="prenom"
+                                type="text"
+                                autocomplete="name"
+                                required="required"
+                                aria-labelledby="messagesPrenom"
+                            />
+                        </div>
+                        <div id="messagesPrenom" class="champ__messages">
+                            <p
+                                class="champ__message-erreur"
+                                aria-live="polite"
+                                aria-atomic="false"
+                            ></p>
+                        </div>
+                    </div>
+
+                    <div id="champNom" class="champ champ--lg">
+                        <div class="champ__boite">
+                            <label for="nom" class="champ__etiquette"
+                                >Nom de famille</label
+                            >
+                            <input
+                                class="champ__input"
+                                id="nom"
+                                name="nom"
+                                type="text"
+                                autocomplete="family-name"
+                                required="required"
+                                aria-labelledby="messagesNom"
+                            />
+                        </div>
+                        <div id="messagesNom" class="champ__messages">
+                            <p
+                                class="champ__message-erreur"
+                                aria-live="polite"
+                                aria-atomic="false"
+                            ></p>
+                        </div>
+                    </div>
+
+                    <div id="champDate" class="champ champ--md">
+                        <div class="champ__boite">
+                            <label for="date" class="champ__etiquette"
+                                >Date de naissance</label
+                            >
+                            <input
+                                class="champ__input"
+                                type="date"
+                                id="date"
+                                name="date"
+                                min="1900-01-01"
+                                required="required"
+                                aria-labelledby="messagesDate"
+                            />
+                        </div>
+                        <div id="messagesDate" class="champ__messages">
+                            <p
+                                class="champ__message-erreur"
+                                aria-live="polite"
+                                aria-atomic="false"
+                            ></p>
+                            <p class="champ__message-aide">
+                                L'âge&nbsp;requis pour&nbsp;s'inscrire
+                                est&nbsp;de&nbsp;18&nbsp;ans et&nbsp;plus.
+                            </p>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset
+                    class="form__etape"
+                    data-etape="informations-connexion"
+                    tabindex="-1"
+                    aria-labelledby="titreInfoConnexion"
+                >
+                    <h2 id="titreInfoConnexion" class="form__titre-etape">
+                        Information de connexion
+                    </h2>
+                </fieldset>
+                <section
+                    class="form__etape"
+                    data-etape="confirmation"
+                    style="display: none"
+                    tabindex="-1"
+                    aria-labelledby="titreConfirmation"
+                >
+                    <h2 id="titreConfirmation" class="form__titre-etape">
+                        Confirmation
+                    </h2>
+                    <p>Votre compte à bien été créé.</p>
+                </section>
+                <div class="form-wrap">
+                    <button type="submit">S'inscrire</button>
+                    <button type="reset">Réinitialiser</button>
+                </div>
+            </form>
+        </main>
+        <script
+            src="./node_modules/requirejs/require.js"
+            data-main="scripts/app.js"
+        ></script>
+    </body>
+</html>

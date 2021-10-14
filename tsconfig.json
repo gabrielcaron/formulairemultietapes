@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "module": "amd",
+        "target": "es5",
+        "outDir": "./scripts",
+        "sourceMap": true,
+        "removeComments": true
+    },
+    "exclude": ["node_modules", "scripts"]
+}
