@@ -7,16 +7,6 @@ export class ValidationDateNaissance extends ValidationInput {
             refFormulaire.querySelector('#champDate')
         );
 
-        /**
-         * ÉTAPE 1.4.4
-         *
-         * Modifier la valeur de l'attribut HTML max sur le this.refInput (#date)
-         * pour la date d'aujourd'hui - 18 ans
-         *
-         * Exemple d'utilisation de l'attribut max:
-         * https://www.w3schools.com/tags/att_input_max.asp
-         */
-
         this.refInput.setAttribute(
             'max',
             `${this.obtenirDateNaissanceMinimumPourEtreAdulte()}`
@@ -37,17 +27,6 @@ export class ValidationDateNaissance extends ValidationInput {
         // Polymorphisme: appeler la fonction valider de la classe ValidationInput
         super.valider();
 
-        /**
-         * ÉTAPE 1.4.5
-         *
-         * Effectuer ici les validations suplémentaires
-         * concerant l'âge minimum de 18 ans
-         *
-         * Par exemple, si la date saisie ne correspond pas celle d'un adulte,
-         * modifier la valeur du this.messageErreurCourant et appeler la méthode this.afficherMessageErreur()
-         *
-         */
-
         if (
             this.refInput.value >
             this.obtenirDateNaissanceMinimumPourEtreAdulte()
@@ -64,13 +43,6 @@ export class ValidationDateNaissance extends ValidationInput {
      * @return {String} date du jour - 18 ans au format AAAA-MM_JJ
      */
     private obtenirDateNaissanceMinimumPourEtreAdulte(): string {
-        /**
-         * ÉTAPE 1.4.2
-         *
-         * Voir un exemple de cette fonction dans M04NOTES_validation-formulaire/Object Date()
-         *
-         */
-
         const dateActuelle = new Date();
         const dateMinimumPourEtreAdulte = new Date(
             dateActuelle.setFullYear(dateActuelle.getFullYear() - 18)
@@ -90,13 +62,6 @@ export class ValidationDateNaissance extends ValidationInput {
      * @returns {Boolean} true si la date la de naissance est supérieur à 18 ans
      */
     private estUnAdulte(dateNaissance: string): boolean {
-        /**
-         * ÉTAPE 1.4.3
-         *
-         * Voir un exemple de cette fonction dans M04NOTES_validation-formulaire/Object Date()
-         *
-         */
-
         const estUnAdulte = (dateNaissance: string): boolean => {
             const dateMinimumPourEtreAdulte = new Date(
                 `${this.obtenirDateNaissanceMinimumPourEtreAdulte()} 00:00`
@@ -107,6 +72,6 @@ export class ValidationDateNaissance extends ValidationInput {
             );
         };
 
-        return; // retour bidon à supprimer pour empêcher les erreurs
+        return; // pour empêcher les erreurs
     }
 }
