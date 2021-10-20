@@ -45,7 +45,7 @@
                                 id="pseudonyme"
                                 name="pseudonyme"
                                 type="text"
-                                pattern="([A-Z])\w+"
+                                pattern="[A-Za-z_-]"
                                 required="required"
                                 aria-labelledby="messagesPseudonyme"
                             />
@@ -53,6 +53,11 @@
                         <div id="messagesPseudonyme" class="champ__messages">
                             <p
                                 class="champ__message-erreur"
+                                aria-live="polite"
+                                aria-atomic="false"
+                            ></p>
+                            <p
+                                class="champ__message-aide"
                                 aria-live="polite"
                                 aria-atomic="false"
                             >
@@ -147,6 +152,130 @@
                     <h2 id="titreInfoConnexion" class="form__titre-etape">
                         Information de connexion
                     </h2>
+                    <div id="champTelephone" class="champ champ--lg">
+                        <div class="champ__boite">
+                            <label for="telephone" class="champ__etiquette"
+                                >Numéro de téléphone</label
+                            >
+                            <input
+                                class="champ__input"
+                                id="telephone"
+                                name="telephone"
+                                type="text"
+                                pattern="[0-9]{3} [0-9]{3}-[0-9]{4}"
+                                required="required"
+                                aria-labelledby="messagesTelephone"
+                            />
+                        </div>
+                        <div id="messagesTelephone" class="champ__messages">
+                            <p
+                                class="champ__message-erreur"
+                                aria-live="polite"
+                                aria-atomic="false"
+                            ></p>
+                            <p
+                                class="champ__message-aide"
+                                aria-live="polite"
+                                aria-atomic="false"
+                            >
+                                Exemple&nbsp;: 123 456-7890
+                            </p>
+                        </div>
+                    </div>
+                    <div id="champCourriel" class="champ champ--lg">
+                        <div class="champ__boite">
+                            <label for="courriel" class="champ__etiquette"
+                                >Courriel</label
+                            >
+                            <input
+                                class="champ__input"
+                                id="courriel"
+                                name="courriel"
+                                type="text"
+                                pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+                                required="required"
+                                aria-labelledby="messagesCourriel"
+                            />
+                        </div>
+                        <div id="messagesCourriel" class="champ__messages">
+                            <p
+                                class="champ__message-erreur"
+                                aria-live="polite"
+                                aria-atomic="false"
+                            ></p>
+                            <p
+                                class="champ__message-aide"
+                                aria-live="polite"
+                                aria-atomic="false"
+                            ></p>
+                        </div>
+                    </div>
+                    <div id="champConfirmationCourriel" class="champ champ--lg">
+                        <div class="champ__boite">
+                            <label
+                                for="confirmationcourriel"
+                                class="champ__etiquette"
+                                >Confirmation du courriel</label
+                            >
+                            <input
+                                class="champ__input"
+                                id="confirmationcourriel"
+                                name="confirmationcourriel"
+                                type="text"
+                                pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+                                required="required"
+                                aria-labelledby="messagesConfirmationCourriel"
+                            />
+                        </div>
+                        <div
+                            id="messagesConfirmationCourriel"
+                            class="champ__messages"
+                        >
+                            <p
+                                class="champ__message-erreur"
+                                aria-live="polite"
+                                aria-atomic="false"
+                            ></p>
+                            <p
+                                class="champ__message-aide"
+                                aria-live="polite"
+                                aria-atomic="false"
+                            ></p>
+                        </div>
+                    </div>
+                    <div id="champMotDePasse" class="champ champ--lg">
+                        <div class="champ__boite">
+                            <label for="motdepasse" class="champ__etiquette"
+                                >Créer un mot de passe</label
+                            >
+                            <input
+                                class="champ__input"
+                                id="motdepasse"
+                                name="motdepasse"
+                                type="text"
+                                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
+                                required="required"
+                                aria-labelledby="messagesMotDePasse"
+                            />
+                        </div>
+                        <div id="messagesMotDePasse" class="champ__messages">
+                            <p
+                                class="champ__message-erreur"
+                                aria-live="polite"
+                                aria-atomic="false"
+                            ></p>
+                            <p
+                                class="champ__message-aide"
+                                aria-live="polite"
+                                aria-atomic="false"
+                            >
+                                Le mot de passe doit contenir au moins huit
+                                caractères, dont au moins un chiffre et comprend
+                                les lettres majuscules et minuscules et des
+                                caractères spéciaux, par exemple #, ?, !.
+                            </p>
+                        </div>
+                    </div>
                 </fieldset>
                 <section
                     class="form__etape"

@@ -137,7 +137,7 @@ define(["require", "exports"], function (require, exports) {
             refEtape.setAttribute(DATA_ETAT_ETAPE, etatEtape);
             if (etatEtape === EtatEtape.Complet) {
                 var refSpan = document.createElement('span');
-                refSpan.classList.add('.visually-hidden');
+                refSpan.classList.add('visually-hidden');
                 refSpan.innerHTML = 'Étape complétée: ';
                 refEtape.prepend(refSpan);
                 refEtape.classList.add(CLASS_ETAPE_COMPLETEE);
@@ -153,7 +153,7 @@ define(["require", "exports"], function (require, exports) {
         BarreProgression.prototype.reinitialiserClassesEtAttributsEtape = function (refEtape, refEtiquette) {
             refEtape.classList.remove(CLASS_ETAPE_COMPLETEE);
             refEtape.classList.remove(CLASS_ETAPE_COURANTE);
-            var refVisuallyHidden = refEtape.querySelector("." + CLASS_VISUALLY_HIDDEN);
+            var refVisuallyHidden = refEtape.querySelector("" + CLASS_VISUALLY_HIDDEN);
             if (refVisuallyHidden) {
                 refVisuallyHidden.remove();
             }

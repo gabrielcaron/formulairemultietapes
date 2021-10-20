@@ -107,12 +107,12 @@ export class ValidationInput {
         if (this.refInput.getAttribute('required')) {
             if (this.refInput.value == '') {
                 this.messageErreurCourant = this.messagesErreur.requis;
-                console.log('Le champ est vide');
+                // console.log('Le champ est vide');
             } else if (
                 this.validerAttributPattern() === false &&
                 this.refInput.getAttribute('pattern')
             ) {
-                console.log('Pattern pas valide');
+                // console.log('Pattern pas valide');
                 this.messageErreurCourant = this.messagesErreur.pattern;
             }
         }
@@ -226,12 +226,12 @@ export class ValidationInput {
 
         this.refChamp.classList.add(CLASSE_CHAMP_ERREUR);
         this.refInput.setAttribute('aria-invalid', 'true');
+
         this.refErreur.innerHTML = this.messageErreurCourant.replace(
             CHAINE_REMPLACEMENT_NOM_ETIQUETTE,
             this.nomEtiquette
         );
-        console.log(this.nomEtiquette);
-        this.refErreur.setAttribute('style', 'display: flex;');
+        this.refErreur.style.display = 'flex';
     }
 
     protected retirerMessageErreur(): void {
@@ -254,7 +254,7 @@ export class ValidationInput {
 
         this.refInput.removeAttribute('aria-invalid');
         this.refChamp.classList.remove(CLASSE_CHAMP_ERREUR);
-        this.refErreur.setAttribute('style', 'display: none');
+        this.refErreur.style.display = 'none';
         this.messageErreurCourant = '';
         this.refErreur.innerHTML = '';
     }

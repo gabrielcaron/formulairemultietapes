@@ -1,4 +1,4 @@
-define(["require", "exports", "./ValidationDateNaissance", "./ValidationInput", "./BarreProgression"], function (require, exports, ValidationDateNaissance_1, ValidationInput_1, BarreProgression_1) {
+define(["require", "exports", "./ValidationDateNaissance", "./ValidationInput", "./BarreProgression", "./ValidationConfirmationCourriel"], function (require, exports, ValidationDateNaissance_1, ValidationInput_1, BarreProgression_1, ValidationConfirmationCourriel_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Formulaire = void 0;
@@ -38,10 +38,17 @@ define(["require", "exports", "./ValidationDateNaissance", "./ValidationInput", 
             var _a;
             return _a = {},
                 _a[BarreProgression_1.NomEtape.Identification] = [
+                    new ValidationInput_1.ValidationInput('Prénom', this.refRacine.querySelector('#champPrenom')),
                     new ValidationInput_1.ValidationInput('Nom&nbsp;de&nbsp;famille', this.refRacine.querySelector('#champNom')),
+                    new ValidationInput_1.ValidationInput('Pseudonyme', this.refRacine.querySelector('#champPseudonyme')),
                     new ValidationDateNaissance_1.ValidationDateNaissance(this.refFormulaire),
                 ],
-                _a[BarreProgression_1.NomEtape.InformationsConnexion] = [],
+                _a[BarreProgression_1.NomEtape.InformationsConnexion] = [
+                    new ValidationInput_1.ValidationInput('Numéro de téléphone', this.refRacine.querySelector('#champTelephone')),
+                    new ValidationInput_1.ValidationInput('Courriel', this.refRacine.querySelector('#champCourriel')),
+                    new ValidationConfirmationCourriel_1.ValidationConfirmationCourriel(this.refFormulaire),
+                    new ValidationInput_1.ValidationInput('Créer un mot de passe', this.refRacine.querySelector('#champMotDePasse')),
+                ],
                 _a[BarreProgression_1.NomEtape.Confirmation] = [],
                 _a;
         };
@@ -75,9 +82,7 @@ define(["require", "exports", "./ValidationDateNaissance", "./ValidationInput", 
             }
         };
         Formulaire.prototype.naviguerEtapeSuivante = function () {
-            console.log('naviguerEtapeSuivante()');
             var etapeCourante = this.barreProgression.nomEtapeCourante;
-            console.log(etapeCourante);
             if (etapeCourante == BarreProgression_1.NomEtape.Identification) {
                 this.barreProgression.modifierEtapeCourante(BarreProgression_1.NomEtape.InformationsConnexion);
             }
@@ -107,6 +112,7 @@ define(["require", "exports", "./ValidationDateNaissance", "./ValidationInput", 
             var _this = this;
             Object.keys(this.controles).forEach(function (etape) {
                 return _this.controles[etape].forEach(function (champ) {
+                    champ.refInput.value = '';
                     champ.reinitialiser();
                 });
             });
@@ -116,9 +122,38 @@ define(["require", "exports", "./ValidationDateNaissance", "./ValidationInput", 
             this.afficherEtapeCourante();
         };
         Formulaire.prototype.afficherMessageErreurGeneral = function () {
-            console.log("*--- Formulaire.afficherMessageErreurGeneral() ---*");
+            var _this = this;
+            this.refMessageErreurGeneral.innerHTML = '';
+            this.refMessageErreurGeneral.style.display = 'block';
+            var refH2 = document.createElement('h2');
+            if (this.controlesEnErreur.length === 1) {
+                refH2.innerHTML = 'Une erreur détectée';
+                this.refMessageErreurGeneral.append(refH2);
+                var refMessage = (document.createElement('p').innerHTML =
+                    "Veuillez corriger l'erreur sur le contrôle suivant :");
+                this.refMessageErreurGeneral.append(refMessage);
+            }
+            else {
+                refH2.innerHTML =
+                    "" + this.controlesEnErreur.length + ' erreurs détectées';
+                this.refMessageErreurGeneral.append(refH2);
+                var refMessage = (document.createElement('p').innerHTML =
+                    'Veuillez corriger les erreurs sur les contrôles suivants :');
+                this.refMessageErreurGeneral.append(refMessage);
+            }
+            this.controlesEnErreur.forEach(function (champ) {
+                var refLi = document.createElement('li');
+                var refA = document.createElement('a');
+                refA.setAttribute('href', "#" + champ.refChamp.getAttribute('id'));
+                refA.innerHTML = champ.nomEtiquette;
+                refLi.append(refA);
+                _this.refMessageErreurGeneral.append(refLi);
+            });
+            this.refMessageErreurGeneral.focus();
         };
         Formulaire.prototype.retirerMessageErreurGeneral = function () {
+            this.refMessageErreurGeneral.innerHTML = '';
+            this.refMessageErreurGeneral.style.display = 'none';
         };
         return Formulaire;
     }());

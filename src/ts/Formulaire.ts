@@ -6,6 +6,7 @@ import {
     NomEtape,
     EVENT_NAVIGUER_ETAPE_SELECTIONNEE,
 } from './BarreProgression'; // TP1 - ÉTAPE X
+import { ValidationConfirmationCourriel } from './ValidationConfirmationCourriel';
 
 const DATA_ETAPE = 'data-etape';
 
@@ -119,14 +120,38 @@ export class Formulaire {
                 // ÉTAPE 3.3.1: Ajouter les validateurs des contrôles présents
                 //              dans l'étape 1: Identification
                 new ValidationInput(
+                    'Prénom',
+                    this.refRacine.querySelector('#champPrenom')
+                ),
+                new ValidationInput(
                     'Nom&nbsp;de&nbsp;famille',
                     this.refRacine.querySelector('#champNom')
+                ),
+                new ValidationInput(
+                    'Pseudonyme',
+                    this.refRacine.querySelector('#champPseudonyme')
                 ),
                 new ValidationDateNaissance(this.refFormulaire),
             ],
             [NomEtape.InformationsConnexion]: [
                 // ÉTAPE 3.3.1: Ajouter les validateurs des contrôles présents
                 //              dans l'étape 2: Informations de connexion
+
+                new ValidationInput(
+                    'Numéro de téléphone',
+                    this.refRacine.querySelector('#champTelephone')
+                ),
+                new ValidationInput(
+                    'Courriel',
+                    this.refRacine.querySelector('#champCourriel')
+                ),
+
+                new ValidationConfirmationCourriel(this.refFormulaire),
+
+                new ValidationInput(
+                    'Créer un mot de passe',
+                    this.refRacine.querySelector('#champMotDePasse')
+                ),
             ],
             [NomEtape.Confirmation]: [],
         };
@@ -233,10 +258,10 @@ export class Formulaire {
          *
          */
 
-        console.log('naviguerEtapeSuivante()');
+        // console.log('naviguerEtapeSuivante()');
 
         const etapeCourante = this.barreProgression.nomEtapeCourante;
-        console.log(etapeCourante);
+        // console.log(etapeCourante);
 
         if (etapeCourante == NomEtape.Identification) {
             this.barreProgression.modifierEtapeCourante(
@@ -269,6 +294,10 @@ export class Formulaire {
                 if (!champ.forcerValidation()) {
                     // Ajouter le champ en erreur dans le tableau de controleEnErreur
                     this.controlesEnErreur.push(champ);
+                    // console.log(
+                    //     'Tableau des erreurs: ',
+                    //     this.controlesEnErreur
+                    // );
                 }
             }
         );
@@ -291,6 +320,7 @@ export class Formulaire {
         // https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
         Object.keys(this.controles).forEach((etape) =>
             this.controles[etape].forEach((champ) => {
+                champ.refInput.value = '';
                 champ.reinitialiser();
             })
         );
@@ -309,18 +339,52 @@ export class Formulaire {
      */
     private afficherMessageErreurGeneral(): void {
         /**
-         * ÉTAPE 3.2.1
+         * ÉTAPE 3.2.1 (3.3.2)
          * */
-        console.log(`*--- Formulaire.afficherMessageErreurGeneral() ---*`); // Supprimer cette console.log()
+
+        // console.log(this.controlesEnErreur);
+
+        this.refMessageErreurGeneral.innerHTML = '';
+
+        this.refMessageErreurGeneral.style.display = 'block';
+
+        let refH2 = document.createElement('h2');
+
+        if (this.controlesEnErreur.length === 1) {
+            refH2.innerHTML = 'Une erreur détectée';
+            this.refMessageErreurGeneral.append(refH2);
+            let refMessage = (document.createElement('p').innerHTML =
+                "Veuillez corriger l'erreur sur le contrôle suivant :");
+            this.refMessageErreurGeneral.append(refMessage);
+        } else {
+            refH2.innerHTML =
+                `${this.controlesEnErreur.length}` + ' erreurs détectées';
+            this.refMessageErreurGeneral.append(refH2);
+            let refMessage = (document.createElement('p').innerHTML =
+                'Veuillez corriger les erreurs sur les contrôles suivants :');
+            this.refMessageErreurGeneral.append(refMessage);
+        }
+        this.controlesEnErreur.forEach((champ) => {
+            let refLi = document.createElement('li');
+            let refA = document.createElement('a');
+            refA.setAttribute('href', `#${champ.refChamp.getAttribute('id')}`);
+            refA.innerHTML = champ.nomEtiquette;
+            refLi.append(refA);
+            this.refMessageErreurGeneral.append(refLi);
+        });
+
+        this.refMessageErreurGeneral.focus();
     }
 
     /**
-     * Rétire du HTML le contenu du message d'erreur général
+     * Retire du HTML le contenu du message d'erreur général
      */
     private retirerMessageErreurGeneral(): void {
         /**
          * ÉTAPE 3.2.2
          */
-        // console.log(`*--- Formulaire.retirerMessageErreurGeneral() ---*`); // Supprimer cette console.log()
+
+        this.refMessageErreurGeneral.innerHTML = '';
+        this.refMessageErreurGeneral.style.display = 'none';
     }
 }

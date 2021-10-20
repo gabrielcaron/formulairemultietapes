@@ -338,7 +338,7 @@ export class BarreProgression {
 
         if (etatEtape === EtatEtape.Complet) {
             const refSpan = document.createElement('span');
-            refSpan.classList.add('.visually-hidden');
+            refSpan.classList.add('visually-hidden');
             refSpan.innerHTML = 'Étape complétée: ';
             refEtape.prepend(refSpan);
             refEtape.classList.add(CLASS_ETAPE_COMPLETEE);
@@ -386,7 +386,7 @@ export class BarreProgression {
         refEtape.classList.remove(CLASS_ETAPE_COMPLETEE);
         refEtape.classList.remove(CLASS_ETAPE_COURANTE);
         const refVisuallyHidden = refEtape.querySelector(
-            `.${CLASS_VISUALLY_HIDDEN}`
+            `${CLASS_VISUALLY_HIDDEN}`
         );
         if (refVisuallyHidden) {
             refVisuallyHidden.remove();

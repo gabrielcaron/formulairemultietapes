@@ -79,7 +79,7 @@ define(["require", "exports"], function (require, exports) {
         ValidationInput.prototype.retirerMessageErreur = function () {
             this.refInput.removeAttribute('aria-invalid');
             this.refChamp.classList.remove(CLASSE_CHAMP_ERREUR);
-            this.refErreur.style.display = 'none';
+            this.refErreur.setAttribute('style', 'display: none');
             this.messageErreurCourant = '';
             this.refErreur.innerHTML = '';
         };
@@ -94,4 +94,4 @@ define(["require", "exports"], function (require, exports) {
     }());
     exports.ValidationInput = ValidationInput;
 });
-//# sourceMappingURL=ValidationInput.js.map
+//# sourceMappingURL=ValidationInput%20copy.js.map
